@@ -1,19 +1,20 @@
 "use client";
-import { Button, Stack, ThemeProvider, TextField, Autocomplete } from "@mui/material";
+import { Button, Stack, TextField, Autocomplete } from "@mui/material";
 import Link from "next/link";
 
 export default function Create() {
 	const handleSubmit = (event) => {
 		event.preventDefault();
+
 		const data = {};
+
 		for (const [name, value] of new FormData(event.target)) {
 			data[name as string] = value;
 		}
+
 		fetch("api/games", {
 			method: "POST",
-
 			body: JSON.stringify(data),
-
 			headers: {
 				"Content-type": "application/json; charset=UTF-8",
 			},
@@ -46,7 +47,6 @@ export default function Create() {
 					sx={{ width: "70%" }}
 				/>
 				<Autocomplete
-					disablePortal
 					options={typeOfGames}
 					sx={{ width: "70%" }}
 					renderInput={(params) => (
@@ -54,18 +54,15 @@ export default function Create() {
 					)}
 				/>
 				<Autocomplete
-					disablePortal
 					options={owned}
 					sx={{ width: "70%" }}
 					renderInput={(params) => <TextField {...params} label="Owned?" name="owned" />}
 				/>
 				<Autocomplete
-					disablePortal
 					options={status}
 					sx={{ width: "70%" }}
 					renderInput={(params) => <TextField {...params} label="Status" name="status" />}
 				/>
-
 				<Autocomplete
 					multiple
 					id="tags-outlined"
@@ -84,7 +81,6 @@ export default function Create() {
 					sx={{
 						bgcolor: "main",
 						":hover": { backgroundColor: "dark" },
-
 						margin: "5px",
 					}}
 				>

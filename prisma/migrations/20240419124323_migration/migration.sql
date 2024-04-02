@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Game" ALTER COLUMN "platfrom" SET NOT NULL,
+ALTER COLUMN "platform" SET DATA TYPE TEXT;
