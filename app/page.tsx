@@ -1,19 +1,28 @@
 "use client";
-import Image from "next/image";
-import Paper from "@mui/material/Paper";
+import "./mainpage.css";
+import { Button } from "@mui/material";
+import Link from "next/link";
 
 export default function MainLayout() {
 	return (
-		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-			<Image
-				src="/nintendo.jpg"
-				alt="Picture of the author"
-				fill
-				style={{ filter: "grayscale(90%) blur(5px)" }}
-			/>
-			<Paper elevation={20} sx={{ width: "60%", height: "100%", position: "fixed", left: "20%" }}>
-				<h1 style={{ textAlign: "center" }}>Games Progress Tracker</h1>
-			</Paper>
-		</div>
+		<>
+			<h1 className="pageTitle">Games Progress Tracker</h1>
+			<Link href="/form">
+				<Button
+					variant="contained"
+					size="large"
+					sx={{
+						textAlign: "center",
+						bgcolor: "#a874a9",
+						":hover": { backgroundColor: "#b635c7" },
+						position: "absolute",
+						left: "50%",
+						transform: "translate(-50%,0)",
+					}}
+				>
+					Add Game
+				</Button>
+			</Link>
+		</>
 	);
 }
