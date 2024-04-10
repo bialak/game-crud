@@ -9,7 +9,9 @@ export default function MainLayout() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<h1 className="pageTitle">Games Progress Tracker</h1>
+				<h1 className="pageTitle" style={{ marginBlockStart: "0%" }}>
+					Games Progress Tracker
+				</h1>
 				<Link href="/create">
 					<Button
 						variant="contained"
