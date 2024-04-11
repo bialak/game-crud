@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
-export default function MainLayout() {
+export default function MainPage() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
