@@ -1,19 +1,33 @@
 "use client";
-import Image from "next/image";
-import Paper from "@mui/material/Paper";
+import "./mainpage.css";
+import { Button } from "@mui/material";
+import Link from "next/link";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
-export default function MainLayout() {
+export default function MainPage() {
 	return (
-		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-			<Image
-				src="/nintendo.jpg"
-				alt="Picture of the author"
-				fill
-				style={{ filter: "grayscale(90%) blur(5px)" }}
-			/>
-			<Paper elevation={20} sx={{ width: "60%", height: "100%", position: "fixed", left: "20%" }}>
-				<h1 style={{ textAlign: "center" }}>Games Progress Tracker</h1>
-			</Paper>
-		</div>
+		<>
+			<ThemeProvider theme={theme}>
+				<h1 className="pageTitle" style={{ marginBlockStart: "0%" }}>
+					Games Progress Tracker
+				</h1>
+				<Link href="/create">
+					<Button
+						variant="contained"
+						size="large"
+						sx={{
+							bgcolor: "main",
+							":hover": { backgroundColor: "dark" },
+							position: "absolute",
+							left: "50%",
+							transform: "translate(-50%,0)",
+						}}
+					>
+						Add Game
+					</Button>
+				</Link>
+			</ThemeProvider>
+		</>
 	);
 }
