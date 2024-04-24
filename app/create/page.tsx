@@ -1,28 +1,10 @@
-"use client";
 import { Button, Stack, TextField, Autocomplete } from "@mui/material";
 import Link from "next/link";
+import createGame from "@/actions/createGame";
 
 export default function Create() {
-	const handleSubmit = (event) => {
-		event.preventDefault();
-
-		const data = {};
-
-		for (const [name, value] of new FormData(event.target)) {
-			data[name as string] = value;
-		}
-
-		fetch("api/games", {
-			method: "POST",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-type": "application/json; charset=UTF-8",
-			},
-		}).then(async (response) => await console.log(response.json()));
-	};
-
 	return (
-		<form onSubmit={handleSubmit}>
+		<form action={createGame}>
 			<Stack spacing={2} justifyContent="center" alignItems="center">
 				<h1 className="pageTitle" style={{ width: "100%" }}>
 					Create Game
@@ -74,19 +56,19 @@ export default function Create() {
 						<TextField {...params} label="Platform" placeholder="Platform" name="platform" />
 					)}
 				/>
-				<Button
-					type="submit"
-					variant="contained"
-					size="large"
-					sx={{
-						bgcolor: "main",
-						":hover": { backgroundColor: "dark" },
-						margin: "5px",
-					}}
-				>
-					Create
-				</Button>
 			</Stack>
+			<Button
+				type="submit"
+				variant="contained"
+				size="large"
+				sx={{
+					bgcolor: "main",
+					":hover": { backgroundColor: "dark" },
+					margin: "5px",
+				}}
+			>
+				Create
+			</Button>
 		</form>
 	);
 }
