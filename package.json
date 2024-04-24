@@ -14,7 +14,10 @@
     "@fontsource/roboto": "^5.0.12",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
+    "@prisma/adapter-pg": "^5.12.1",
+    "@prisma/client": "^5.12.1",
     "next": "14.1.4",
+    "pg": "^8.11.5",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -26,6 +29,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",
+    "prisma": "^5.12.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
