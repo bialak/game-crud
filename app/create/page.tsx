@@ -1,10 +1,29 @@
+"use client";
+
 import { Button, Stack, TextField, Autocomplete } from "@mui/material";
 import Link from "next/link";
-import createGame from "@/actions/createGame";
 
 export default function Create() {
+	function createGame(event) {
+		event.preventDefault();
+
+		const data = {};
+
+		for (const [name, value] of new FormData(event.target)) {
+			data[name as string] = value;
+		}
+
+		fetch("api/games", {
+			method: "POST",
+			body: JSON.stringify(data),
+			headers: {
+				"Content-type": "application/json; charset=UTF-8",
+			},
+		}).then(async (response) => await console.log(response.json()));
+	}
+
 	return (
-		<form action={createGame}>
+		<form onSubmit={createGame}>
 			<Stack spacing={2} justifyContent="center" alignItems="center">
 				<h1 className="pageTitle" style={{ width: "100%" }}>
 					Create Game
@@ -53,7 +72,7 @@ export default function Create() {
 					getOptionLabel={(option) => option}
 					filterSelectedOptions
 					renderInput={(params) => (
-						<TextField {...params} label="Platform" placeholder="Platform" name="platform" />
+						<TextField {...params} label="platform" placeholder="Platform" name="platform" />
 					)}
 				/>
 			</Stack>
@@ -94,3 +113,5 @@ const owned = ["Yes", "No"];
 const status = ["I'm playing", "I finished", "On Hold", "Abandoned", "Planing"];
 
 const platform = ["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"];
+
+// "yup" "zod"
