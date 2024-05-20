@@ -1,10 +1,27 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import { TextField } from "@mui/material";
+import React, { FunctionComponent } from "react";
+import { Controller, Control, FieldPath } from "react-hook-form";
+import { TextField, TextFieldProps } from "@mui/material";
 
-function FormInput(props) {
-	const { name, label, control, required, value } = props;
+interface FormInputProps<T extends Record<string, any>> {
+	name: FieldPath<T>;
+	label: string;
+	variant?: "standard" | "outlined" | "filled" | undefined;
+	errorMessage?: string | undefined;
+	type?: React.InputHTMLAttributes<unknown>["type"];
+	control: Control<T>;
+	required: TextFieldProps["required"];
+}
 
+export const FormInput = <T extends Record<string, any>>({
+	control,
+	name,
+	variant,
+	type = "text",
+	label,
+	required,
+	errorMessage,
+	...others
+}: FormInputProps<T>) => {
 	return (
 		<>
 			<Controller
@@ -12,24 +29,22 @@ function FormInput(props) {
 				control={control}
 				render={({ field }) => (
 					<TextField
-						control={control}
 						label={label}
+						type={type}
 						id="outlined-multiline-flexible"
 						sx={{ width: "70%" }}
+						variant={variant || "outlined"}
 						required={required}
-						// InputLabelProps={{
-						// 	className: required ? "required-label" : "",
-
-						// error={isError}						// 	required: required || false,
-						// }}
-						helperText={"ee"}
+						defaultValue={""}
+						error={Boolean(errorMessage)}
+						helperText={errorMessage}
 						{...field}
-						{...props}
+						{...others}
 					/>
 				)}
 			/>
 		</>
 	);
-}
+};
 
 export default FormInput;
