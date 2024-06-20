@@ -8,7 +8,62 @@ import FormAutocomplete from "../components/FormAutocomplete";
 import FormMultipleAutocomplete from "../components/FormMulitipleAutocomplete";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { OwnedOptions, StatusOptions } from "../enums";
+import { OwnedOptions, StatusOptions, TypesOfGamesOptions } from "../enums";
+
+const typesOfGamesOptions = [
+	{
+		value: TypesOfGamesOptions.RPG,
+		label: "RPG",
+	},
+	{
+		value: TypesOfGamesOptions.PLATFORM,
+		label: "Platform",
+	},
+	{
+		value: TypesOfGamesOptions.MMORPG,
+		label: "MMORPG",
+	},
+	{
+		value: TypesOfGamesOptions.SHOOTER,
+		label: "Shooter",
+	},
+	{
+		value: TypesOfGamesOptions.SURVIVAL,
+		label: "Survival",
+	},
+	{
+		value: TypesOfGamesOptions.BATTLE_ROYAL,
+		label: "Battle Royal",
+	},
+	{
+		value: TypesOfGamesOptions.RACING,
+		label: "Racing",
+	},
+	{
+		value: TypesOfGamesOptions.SPORTS,
+		label: "Sports",
+	},
+	{
+		value: TypesOfGamesOptions.SIMULATION,
+		label: "Simulation",
+	},
+	{
+		value: TypesOfGamesOptions.MMO,
+		label: "MMO",
+	},
+	{
+		value: TypesOfGamesOptions.HORROR,
+		label: "Horror",
+	},
+	{
+		value: TypesOfGamesOptions.POINTS_AND_CLICK,
+		label: "Point and Click ",
+	},
+	{
+		value: TypesOfGamesOptions.COOPERATIVE,
+		label: "Cooperative",
+	},
+];
 
 const ownedOptions = [
 	{
@@ -47,19 +102,19 @@ const statusOptions = [
 interface GameFormValues {
 	game_name: string;
 	type_of_game:
-		| "RPG"
-		| "Platform"
-		| "MMORPG"
-		| "Shooter"
-		| "Survival"
-		| "Battle Royal"
-		| "Racing"
-		| "Sports"
-		| "Simulation"
-		| "MMO"
-		| "Horror"
-		| "Point and Click "
-		| "Cooperative ";
+		| TypesOfGamesOptions.RPG
+		| TypesOfGamesOptions.PLATFORM
+		| TypesOfGamesOptions.MMORPG
+		| TypesOfGamesOptions.SHOOTER
+		| TypesOfGamesOptions.SURVIVAL
+		| TypesOfGamesOptions.BATTLE_ROYAL
+		| TypesOfGamesOptions.RACING
+		| TypesOfGamesOptions.SPORTS
+		| TypesOfGamesOptions.SIMULATION
+		| TypesOfGamesOptions.MMO
+		| TypesOfGamesOptions.HORROR
+		| TypesOfGamesOptions.POINTS_AND_CLICK
+		| TypesOfGamesOptions.COOPERATIVE;
 	owned: OwnedOptions.Yes | OwnedOptions.No;
 	status:
 		| StatusOptions.PLAYING
@@ -70,62 +125,62 @@ interface GameFormValues {
 	platform: string[];
 }
 
-export default function Create(props) {
-	const validationSchema = yup.object().shape({
-		game_name: yup
-			.string()
-			.required("Name Validation Field is Required")
-			.min(5, "Must be more that 5 letters")
-			.max(255, "tile is too long"),
-		type_of_game: yup
-			.string()
-			.oneOf(
-				[
-					"RPG",
-					"Platform",
-					"MMORPG",
-					"Shooter",
-					"Survival",
-					"Battle Royal",
-					"Racing",
-					"Sports",
-					"Simulation",
-					"MMO",
-					"Horror",
-					"Point and Click ",
-					"Cooperative ",
-				],
-				"Please pick one option"
-			)
-			.required("Select Validation Field is Required"),
-		owned: yup
-			.string()
-			.oneOf([OwnedOptions.Yes, OwnedOptions.No], "Please pick one option")
-			.required("Select Validation Field is Required"),
-		status: yup
-			.string()
-			.oneOf(
-				[
-					StatusOptions.PLAYING,
-					StatusOptions.FINISHED,
-					StatusOptions.ONHOLD,
-					StatusOptions.ABONDEND,
-					StatusOptions.PLANING,
-				],
-				"Please pick one option"
-			)
-			.required("Select Validation Field is Required"),
-		platform: yup
-			// .array().of(yup.string()),
-			.array()
-			// .of(yup.string().oneOf(["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"]))
-			.required("Multi Select Validation Field required"),
-	});
+const validationSchema = yup.object().shape({
+	game_name: yup
+		.string()
+		.required("Name Validation Field is Required")
+		.min(5, "Must be more that 5 letters")
+		.max(255, "tile is too long"),
+	type_of_game: yup
+		.string()
+		.oneOf(
+			[
+				TypesOfGamesOptions.RPG,
+				TypesOfGamesOptions.PLATFORM,
+				TypesOfGamesOptions.MMORPG,
+				TypesOfGamesOptions.SHOOTER,
+				TypesOfGamesOptions.SURVIVAL,
+				TypesOfGamesOptions.BATTLE_ROYAL,
+				TypesOfGamesOptions.RACING,
+				TypesOfGamesOptions.SPORTS,
+				TypesOfGamesOptions.SIMULATION,
+				TypesOfGamesOptions.MMO,
+				TypesOfGamesOptions.HORROR,
+				TypesOfGamesOptions.POINTS_AND_CLICK,
+				TypesOfGamesOptions.COOPERATIVE,
+			],
+			"Please pick one option"
+		)
+		.required("Select Validation Field is Required"),
+	owned: yup
+		.string()
+		.oneOf([OwnedOptions.Yes, OwnedOptions.No], "Please pick one option")
+		.required("Select Validation Field is Required"),
+	status: yup
+		.string()
+		.oneOf(
+			[
+				StatusOptions.PLAYING,
+				StatusOptions.FINISHED,
+				StatusOptions.ONHOLD,
+				StatusOptions.ABONDEND,
+				StatusOptions.PLANING,
+			],
+			"Please pick one option"
+		)
+		.required("Select Validation Field is Required"),
+	platform: yup
+		// .array().of(yup.string()),
+		.array()
+		// .of(yup.string().oneOf(["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"]))
+		.required("Multi Select Validation Field required"),
+});
 
+export default function Create(props) {
 	const methods = useForm<GameFormValues>({
 		defaultValues: {
 			game_name: "",
-			type_of_game: "RPG",
+			type_of_game: TypesOfGamesOptions.RPG,
 			owned: OwnedOptions.No,
 			status: StatusOptions.PLANING,
 			platform: ["Steam"],
@@ -184,14 +239,14 @@ export default function Create(props) {
 							required
 							errorMessage={errors["game_name"]?.message}
 						/>
-						{/* <FormAutocomplete
+						<FormAutocomplete
 							control={control}
 							name="type_of_game"
 							label="Type Of Game"
 							required={false}
 							errorMessage={errors["type_of_game"]?.message}
-							options={typeOfGames}
-						/> */}
+							options={typesOfGamesOptions}
+						/>
 						<FormAutocomplete
 							control={control}
 							name="owned"
@@ -247,10 +302,8 @@ const typeOfGames = [
 	"MMO",
 	"Horror",
 	"Point and Click ",
-	"Cooperative ",
+	"Cooperative",
 ];
-
-const status = ["I'm playing", "I finished", "On Hold", "Abandoned", "Planing"];
 
 const platform = ["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"];
 
