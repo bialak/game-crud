@@ -1,9 +1,27 @@
 import React from "react";
-import { Controller } from "react-hook-form";
-import { Autocomplete, TextField, Chip } from "@mui/material";
+import { Controller, Control, FieldPath } from "react-hook-form";
+import { Autocomplete, TextField, Chip, TextFieldProps } from "@mui/material";
 
-function FormMultipleAutocomplete(props) {
-	const { name, label, control } = props;
+interface MultipleAutocompleteFieldProps<T extends Record<string, any>> {
+	name: FieldPath<T>;
+	label: string;
+	variant?: "standard" | "outlined" | "filled" | undefined;
+	errorMessage?: string | undefined;
+	type?: React.InputHTMLAttributes<unknown>["type"];
+	control: Control<T>;
+	required: TextFieldProps["required"];
+	options: string[];
+}
+export const FormMultipleAutocomplete = <T extends Record<string, any>>({
+	control,
+	name,
+	variant,
+	label,
+	options,
+	required,
+	errorMessage,
+	...others
+}: MultipleAutocompleteFieldProps<T>) => {
 	return (
 		<>
 			<Controller
@@ -19,7 +37,7 @@ function FormMultipleAutocomplete(props) {
 						}}
 						multiple
 						disableCloseOnSelect
-						options={platform}
+						options={options}
 						renderOption={(props, option) => {
 							return (
 								<li {...props} key={option}>
@@ -34,12 +52,12 @@ function FormMultipleAutocomplete(props) {
 						}}
 						renderInput={(params) => (
 							<TextField
+								helperText={errorMessage}
+								error={Boolean(errorMessage)}
 								{...params}
 								label="Platform"
 								placeholder="platform"
 								name={name}
-								// helperText={errors.industries?.message}
-								// error={!!errors.industries}
 							/>
 						)}
 						{...field}
@@ -52,7 +70,7 @@ function FormMultipleAutocomplete(props) {
 			;
 		</>
 	);
-}
+};
 
 export default FormMultipleAutocomplete;
 
