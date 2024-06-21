@@ -26,3 +26,11 @@ export enum TypesOfGamesOptions {
 	POINTS_AND_CLICK = "Point and Click ",
 	COOPERATIVE = "Cooperative",
 }
+
+export enum PlatformOptions {
+	STEAM = "Steam",
+	EPIC_GAMES = "Epic Games",
+	UBISOFT = "Ubisoft",
+	BATTLE_NET = "Batlle.net",
+	OTHER = "Other",
+}
