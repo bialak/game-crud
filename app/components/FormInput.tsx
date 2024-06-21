@@ -35,7 +35,6 @@ export const FormInput = <T extends Record<string, any>>({
 						sx={{ width: "70%" }}
 						variant={variant || "outlined"}
 						required={required}
-						defaultValue={""}
 						error={Boolean(errorMessage)}
 						helperText={errorMessage}
 						{...field}
