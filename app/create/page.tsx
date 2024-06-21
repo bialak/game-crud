@@ -5,10 +5,9 @@ import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
 import FormInput from "../components/FormInput";
 import FormAutocomplete from "../components/FormAutocomplete";
-import FormMultipleAutocomplete from "../components/FormMulitipleAutocomplete";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { OwnedOptions, StatusOptions, TypesOfGamesOptions } from "../enums";
+import { OwnedOptions, StatusOptions, TypesOfGamesOptions, PlatformOptions } from "../enums";
 
 const typesOfGamesOptions = [
 	{
@@ -99,6 +98,28 @@ const statusOptions = [
 	},
 ];
 
+const platfromOptions = [
+	{
+		value: PlatformOptions.STEAM,
+		label: "Steam",
+	},
+	{
+		value: PlatformOptions.EPIC_GAMES,
+		label: "Epic Games",
+	},
+	{
+		value: PlatformOptions.UBISOFT,
+		label: "Ubisoft",
+	},
+	{
+		value: PlatformOptions.BATTLE_NET,
+		label: "Batlle.net",
+	},
+	{
+		value: PlatformOptions.OTHER,
+		label: "Other",
+	},
+];
 interface GameFormValues {
 	game_name: string;
 	type_of_game:
@@ -122,7 +143,12 @@ interface GameFormValues {
 		| StatusOptions.ONHOLD
 		| StatusOptions.ABONDEND
 		| StatusOptions.PLANING;
-	platform: string[];
+	platform:
+		| PlatformOptions.STEAM
+		| PlatformOptions.EPIC_GAMES
+		| PlatformOptions.UBISOFT
+		| PlatformOptions.BATTLE_NET
+		| PlatformOptions.OTHER;
 }
 
 const validationSchema = yup.object().shape({
@@ -170,10 +196,18 @@ const validationSchema = yup.object().shape({
 		)
 		.required("Select Validation Field is Required"),
 	platform: yup
-		// .array().of(yup.string()),
-		.array()
-		// .of(yup.string().oneOf(["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"]))
-		.required("Multi Select Validation Field required"),
+		.string()
+		.oneOf(
+			[
+				PlatformOptions.STEAM,
+				PlatformOptions.EPIC_GAMES,
+				PlatformOptions.UBISOFT,
+				PlatformOptions.BATTLE_NET,
+				PlatformOptions.OTHER,
+			],
+			"Please pick one option"
+		)
+		.required("Select Validation Field is Required"),
 });
 
 export default function Create(props) {
@@ -183,7 +217,7 @@ export default function Create(props) {
 			type_of_game: TypesOfGamesOptions.RPG,
 			owned: OwnedOptions.No,
 			status: StatusOptions.PLANING,
-			platform: ["Steam"],
+			platform: PlatformOptions.STEAM,
 		},
 		resolver: yupResolver(validationSchema),
 		shouldFocusError: true,
@@ -194,10 +228,8 @@ export default function Create(props) {
 		handleSubmit,
 		control,
 		formState: { errors },
-		watch,
 	} = methods;
 	const errorMsg = errors["game_name"]?.message;
-	const ownedValue = watch("owned");
 	function createGame(data) {
 		// event.preventDefault();
 		// const data = {};
@@ -263,12 +295,14 @@ export default function Create(props) {
 							errorMessage={errors["status"]?.message}
 							options={statusOptions}
 						/>
-						{/* <FormMultipleAutocomplete
+						<FormAutocomplete
 							control={control}
-							required={false}
-							errorMessage={errors["platform"]?.message}
 							name="platform"
-						/> */}
+							label="Platform"
+							required={false}
+							errorMessage={errors["status"]?.message}
+							options={platfromOptions}
+						/>
 					</Stack>
 					<Button
 						onClick={handleSubmit(createGame)}
@@ -288,32 +322,3 @@ export default function Create(props) {
 		</>
 	);
 }
-
-const typeOfGames = [
-	"RPG",
-	"Platform",
-	"MMORPG",
-	"Shooter",
-	"Survival",
-	"Battle Royal",
-	"Racing",
-	"Sports",
-	"Simulation",
-	"MMO",
-	"Horror",
-	"Point and Click ",
-	"Cooperative",
-];
-
-const platform = ["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"];
-
-// const ownedOptions = [
-// 	{
-// 		value: OwnedOptions.Yes,
-// 		label: "Yes",
-// 	},
-// 	{
-// 		value: OwnedOptions.No,
-// 		label: "No",
-// 	},
-// ];
