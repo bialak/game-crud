@@ -7,6 +7,8 @@ I created games-crud.Among others in this project you can add games, which you p
 * Open the psql command-line tool. In the Windows Command Prompt or Terminal, run the command: psql -U userName. Enter your password which you created in installation . Usually userName is postgres.
 * Run a CREATE DATABASE command to create a new database. For example : CREATE DATABASE games WITH ENCODING 'UTF8'.
 * Connect to the new database using the command: \c databaseName.
+* You should gave the .env file you need to replace DATABASEURL like in .env.example. Just write your created database, password, user and port if you use another one.
+* Remove migrations files and write the command : npx prisma migrate dev –DatabaseName init.
 
 
 
