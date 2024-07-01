@@ -1,117 +1,135 @@
 "use client";
-
-import { Button, Stack, TextField, Autocomplete } from "@mui/material";
+import React from "react";
+import { Button, Stack } from "@mui/material";
 import Link from "next/link";
+import { useForm, FormProvider } from "react-hook-form";
+import FormInput from "@/components/FormInput";
+import FormAutocomplete from "@/components/FormAutocomplete";
+import * as yup from "yup";
+import { validationSchema } from "@/validation/validationSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  OwnedOptions,
+  StatusOptions,
+  TypesOfGamesOptions,
+  PlatformOptions,
+} from "@/components/types";
+import {
+  typesOfGamesOptions,
+  ownedOptions,
+  statusOptions,
+  platfromOptions,
+} from "@/validation/options";
+import { GameFormValues } from "@/validation/options";
 
-export default function Create() {
-	function createGame(event) {
-		event.preventDefault();
+export default function Create(props) {
+  const methods = useForm<GameFormValues>({
+    defaultValues: {
+      game_name: "",
+      type_of_game: TypesOfGamesOptions.RPG,
+      owned: OwnedOptions.No,
+      status: StatusOptions.PLANING,
+      platform: PlatformOptions.STEAM,
+    },
+    resolver: yupResolver(validationSchema),
+    shouldFocusError: true,
+    criteriaMode: "all",
+    reValidateMode: "onChange",
+  });
 
-		const data = {};
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = methods;
 
-		for (const [name, value] of new FormData(event.target)) {
-			data[name as string] = value;
-		}
+  const errorMsg = errors["game_name"]?.message;
 
-		fetch("api/games", {
-			method: "POST",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-type": "application/json; charset=UTF-8",
-			},
-		}).then(async (response) => await console.log(response.json()));
-	}
+  function createGame(data) {
+    fetch("api/games", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then(async (response) => await console.log(response.json()));
+  }
 
-	return (
-		<form onSubmit={createGame}>
-			<Stack spacing={2} justifyContent="center" alignItems="center">
-				<h1 className="pageTitle" style={{ width: "100%" }}>
-					Create Game
-				</h1>
-				<Link href="/">
-					<Button
-						variant="contained"
-						size="small"
-						sx={{
-							bgcolor: "main",
-							":hover": { backgroundColor: "dark" },
-						}}
-					>
-						Back
-					</Button>
-				</Link>
-				<TextField
-					InputLabelProps={{ htmlFor: "outlined-multiline-flexible" }}
-					name="game_name"
-					id="outlined-multiline-flexible"
-					label="Game Name"
-					sx={{ width: "70%" }}
-				/>
-				<Autocomplete
-					options={typeOfGames}
-					sx={{ width: "70%" }}
-					renderInput={(params) => (
-						<TextField {...params} label="Type Of Game" name="type_of_game" />
-					)}
-				/>
-				<Autocomplete
-					options={owned}
-					sx={{ width: "70%" }}
-					renderInput={(params) => <TextField {...params} label="Owned?" name="owned" />}
-				/>
-				<Autocomplete
-					options={status}
-					sx={{ width: "70%" }}
-					renderInput={(params) => <TextField {...params} label="Status" name="status" />}
-				/>
-				<Autocomplete
-					multiple
-					id="tags-outlined"
-					options={platform}
-					sx={{ width: "70%" }}
-					getOptionLabel={(option) => option}
-					filterSelectedOptions
-					renderInput={(params) => (
-						<TextField {...params} label="platform" placeholder="Platform" name="platform" />
-					)}
-				/>
-			</Stack>
-			<Button
-				type="submit"
-				variant="contained"
-				size="large"
-				sx={{
-					bgcolor: "main",
-					":hover": { backgroundColor: "dark" },
-					margin: "5px",
-				}}
-			>
-				Create
-			</Button>
-		</form>
-	);
+  return (
+    <>
+      <FormProvider {...methods}>
+        <form>
+          <Stack spacing={2} justifyContent="center" alignItems="center">
+            <h1 className="pageTitle" style={{ width: "100%" }}>
+              Create Game
+            </h1>
+            <Link href="/">
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  bgcolor: "main",
+                  ":hover": { backgroundColor: "dark" },
+                }}
+              >
+                Back
+              </Button>
+            </Link>
+            <FormInput
+              control={control}
+              name="game_name"
+              label="Game Name"
+              required
+              errorMessage={errors["game_name"]?.message}
+            />
+            <FormAutocomplete
+              control={control}
+              name="type_of_game"
+              label="Type Of Game"
+              required={false}
+              errorMessage={errors["type_of_game"]?.message}
+              options={typesOfGamesOptions}
+            />
+            <FormAutocomplete
+              control={control}
+              name="owned"
+              label="Owned?"
+              required={false}
+              errorMessage={errors["owned"]?.message}
+              options={ownedOptions}
+            />
+            <FormAutocomplete
+              control={control}
+              name="status"
+              label="Status"
+              required={false}
+              errorMessage={errors["status"]?.message}
+              options={statusOptions}
+            />
+            <FormAutocomplete
+              control={control}
+              name="platform"
+              label="Platform"
+              required={false}
+              errorMessage={errors["status"]?.message}
+              options={platfromOptions}
+            />
+          </Stack>
+          <Button
+            onClick={handleSubmit(createGame)}
+            type="submit"
+            variant="contained"
+            size="large"
+            sx={{
+              bgcolor: "main",
+              ":hover": { backgroundColor: "dark" },
+              margin: "5px",
+            }}
+          >
+            Create
+          </Button>
+        </form>
+      </FormProvider>
+    </>
+  );
 }
-
-const typeOfGames = [
-	"RPG",
-	"Platform",
-	"MMORPG",
-	"Shooter",
-	"Survival",
-	"Battle Royal",
-	"Racing",
-	"Sports",
-	"Simulation",
-	"MMO",
-	"Horror",
-	"Point and Click ",
-	"Cooperative ",
-];
-
-const owned = ["Yes", "No"];
-
-const status = ["I'm playing", "I finished", "On Hold", "Abandoned", "Planing"];
-
-const platform = ["Steam", "Epic Games", "Ubisoft", "Batlle.net", "Other"];
-
-// "yup" "zod"

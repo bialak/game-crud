@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.12",
+    "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
     "@prisma/adapter-pg": "^5.12.1",
@@ -19,7 +20,9 @@
     "next": "14.1.4",
     "pg": "^8.11.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.4",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",
