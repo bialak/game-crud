@@ -3,217 +3,24 @@ import React from "react";
 import { Button, Stack } from "@mui/material";
 import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
-import FormInput from "../components/FormInput";
-import FormAutocomplete from "../components/FormAutocomplete";
+import FormInput from "@/components/FormInput";
+import FormAutocomplete from "@/components/FormAutocomplete";
 import * as yup from "yup";
+import { validationSchema } from "@/validation/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   OwnedOptions,
   StatusOptions,
   TypesOfGamesOptions,
   PlatformOptions,
-} from "../enums";
-
-const typesOfGamesOptions = [
-  {
-    value: TypesOfGamesOptions.RPG,
-    label: "RPG",
-  },
-  {
-    value: TypesOfGamesOptions.PLATFORM,
-    label: "Platform",
-  },
-  {
-    value: TypesOfGamesOptions.MMORPG,
-    label: "MMORPG",
-  },
-  {
-    value: TypesOfGamesOptions.SHOOTER,
-    label: "Shooter",
-  },
-  {
-    value: TypesOfGamesOptions.SURVIVAL,
-    label: "Survival",
-  },
-  {
-    value: TypesOfGamesOptions.BATTLE_ROYAL,
-    label: "Battle Royal",
-  },
-  {
-    value: TypesOfGamesOptions.RACING,
-    label: "Racing",
-  },
-  {
-    value: TypesOfGamesOptions.SPORTS,
-    label: "Sports",
-  },
-  {
-    value: TypesOfGamesOptions.SIMULATION,
-    label: "Simulation",
-  },
-  {
-    value: TypesOfGamesOptions.MMO,
-    label: "MMO",
-  },
-  {
-    value: TypesOfGamesOptions.HORROR,
-    label: "Horror",
-  },
-  {
-    value: TypesOfGamesOptions.POINTS_AND_CLICK,
-    label: "Point and Click ",
-  },
-  {
-    value: TypesOfGamesOptions.COOPERATIVE,
-    label: "Cooperative",
-  },
-];
-
-const ownedOptions = [
-  {
-    value: OwnedOptions.Yes,
-    label: "Yes",
-  },
-  {
-    value: OwnedOptions.No,
-    label: "No",
-  },
-];
-
-const statusOptions = [
-  {
-    value: StatusOptions.PLAYING,
-    label: "I'm playing",
-  },
-  {
-    value: StatusOptions.FINISHED,
-    label: "I finished",
-  },
-  {
-    value: StatusOptions.ONHOLD,
-    label: "On Hold",
-  },
-  {
-    value: StatusOptions.ABONDEND,
-    label: "Abandoned",
-  },
-  {
-    value: StatusOptions.PLANING,
-    label: "Planing",
-  },
-];
-
-const platfromOptions = [
-  {
-    value: PlatformOptions.STEAM,
-    label: "Steam",
-  },
-  {
-    value: PlatformOptions.EPIC_GAMES,
-    label: "Epic Games",
-  },
-  {
-    value: PlatformOptions.UBISOFT,
-    label: "Ubisoft",
-  },
-  {
-    value: PlatformOptions.BATTLE_NET,
-    label: "Batlle.net",
-  },
-  {
-    value: PlatformOptions.OTHER,
-    label: "Other",
-  },
-];
-interface GameFormValues {
-  game_name: string;
-  type_of_game:
-    | TypesOfGamesOptions.RPG
-    | TypesOfGamesOptions.PLATFORM
-    | TypesOfGamesOptions.MMORPG
-    | TypesOfGamesOptions.SHOOTER
-    | TypesOfGamesOptions.SURVIVAL
-    | TypesOfGamesOptions.BATTLE_ROYAL
-    | TypesOfGamesOptions.RACING
-    | TypesOfGamesOptions.SPORTS
-    | TypesOfGamesOptions.SIMULATION
-    | TypesOfGamesOptions.MMO
-    | TypesOfGamesOptions.HORROR
-    | TypesOfGamesOptions.POINTS_AND_CLICK
-    | TypesOfGamesOptions.COOPERATIVE;
-  owned: OwnedOptions.Yes | OwnedOptions.No;
-  status:
-    | StatusOptions.PLAYING
-    | StatusOptions.FINISHED
-    | StatusOptions.ONHOLD
-    | StatusOptions.ABONDEND
-    | StatusOptions.PLANING;
-  platform:
-    | PlatformOptions.STEAM
-    | PlatformOptions.EPIC_GAMES
-    | PlatformOptions.UBISOFT
-    | PlatformOptions.BATTLE_NET
-    | PlatformOptions.OTHER;
-}
-
-const validationSchema = yup.object().shape({
-  game_name: yup
-    .string()
-    .required("Name Validation Field is Required")
-    .min(5, "Must be more that 5 letters")
-    .max(255, "tile is too long"),
-  type_of_game: yup
-    .string()
-    .oneOf(
-      [
-        TypesOfGamesOptions.RPG,
-        TypesOfGamesOptions.PLATFORM,
-        TypesOfGamesOptions.MMORPG,
-        TypesOfGamesOptions.SHOOTER,
-        TypesOfGamesOptions.SURVIVAL,
-        TypesOfGamesOptions.BATTLE_ROYAL,
-        TypesOfGamesOptions.RACING,
-        TypesOfGamesOptions.SPORTS,
-        TypesOfGamesOptions.SIMULATION,
-        TypesOfGamesOptions.MMO,
-        TypesOfGamesOptions.HORROR,
-        TypesOfGamesOptions.POINTS_AND_CLICK,
-        TypesOfGamesOptions.COOPERATIVE,
-      ],
-      "Please pick one option"
-    )
-    .required("Select Validation Field is Required"),
-  owned: yup
-    .string()
-    .oneOf([OwnedOptions.Yes, OwnedOptions.No], "Please pick one option")
-    .required("Select Validation Field is Required"),
-  status: yup
-    .string()
-    .oneOf(
-      [
-        StatusOptions.PLAYING,
-        StatusOptions.FINISHED,
-        StatusOptions.ONHOLD,
-        StatusOptions.ABONDEND,
-        StatusOptions.PLANING,
-      ],
-      "Please pick one option"
-    )
-    .required("Select Validation Field is Required"),
-  platform: yup
-    .string()
-    .oneOf(
-      [
-        PlatformOptions.STEAM,
-        PlatformOptions.EPIC_GAMES,
-        PlatformOptions.UBISOFT,
-        PlatformOptions.BATTLE_NET,
-        PlatformOptions.OTHER,
-      ],
-      "Please pick one option"
-    )
-    .required("Select Validation Field is Required"),
-});
+} from "@/components/types";
+import {
+  typesOfGamesOptions,
+  ownedOptions,
+  statusOptions,
+  platfromOptions,
+} from "@/validation/options";
+import { GameFormValues } from "@/validation/options";
 
 export default function Create(props) {
   const methods = useForm<GameFormValues>({
@@ -229,11 +36,13 @@ export default function Create(props) {
     criteriaMode: "all",
     reValidateMode: "onChange",
   });
+
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = methods;
+
   const errorMsg = errors["game_name"]?.message;
 
   function createGame(data) {
