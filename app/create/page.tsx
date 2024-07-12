@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
 import FormInput from "@/components/FormInput";
 import FormAutocomplete from "@/components/FormAutocomplete";
-import * as yup from "yup";
 import { validationSchema } from "@/validation/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -56,80 +55,78 @@ export default function Create(props) {
   }
 
   return (
-    <>
-      <FormProvider {...methods}>
-        <form>
-          <Stack spacing={2} justifyContent="center" alignItems="center">
-            <h1 className="pageTitle" style={{ width: "100%" }}>
-              Create Game
-            </h1>
-            <Link href="/">
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "main",
-                  ":hover": { backgroundColor: "dark" },
-                }}
-              >
-                Back
-              </Button>
-            </Link>
-            <FormInput
-              control={control}
-              name="game_name"
-              label="Game Name"
-              required
-              errorMessage={errors["game_name"]?.message}
-            />
-            <FormAutocomplete
-              control={control}
-              name="type_of_game"
-              label="Type Of Game"
-              required={false}
-              errorMessage={errors["type_of_game"]?.message}
-              options={typesOfGamesOptions}
-            />
-            <FormAutocomplete
-              control={control}
-              name="owned"
-              label="Owned?"
-              required={false}
-              errorMessage={errors["owned"]?.message}
-              options={ownedOptions}
-            />
-            <FormAutocomplete
-              control={control}
-              name="status"
-              label="Status"
-              required={false}
-              errorMessage={errors["status"]?.message}
-              options={statusOptions}
-            />
-            <FormAutocomplete
-              control={control}
-              name="platform"
-              label="Platform"
-              required={false}
-              errorMessage={errors["status"]?.message}
-              options={platfromOptions}
-            />
-          </Stack>
-          <Button
-            onClick={handleSubmit(createGame)}
-            type="submit"
-            variant="contained"
-            size="large"
-            sx={{
-              bgcolor: "main",
-              ":hover": { backgroundColor: "dark" },
-              margin: "5px",
-            }}
-          >
-            Create
-          </Button>
-        </form>
-      </FormProvider>
-    </>
+    <FormProvider {...methods}>
+      <form>
+        <Stack spacing={2} justifyContent="center" alignItems="center">
+          <h1 className="pageTitle" style={{ width: "100%" }}>
+            Create Game
+          </h1>
+          <Link href="/">
+            <Button
+              variant="contained"
+              size="small"
+              sx={{
+                bgcolor: "main",
+                ":hover": { backgroundColor: "dark" },
+              }}
+            >
+              Back
+            </Button>
+          </Link>
+          <FormInput
+            control={control}
+            name="game_name"
+            label="Game Name"
+            required
+            errorMessage={errors["game_name"]?.message}
+          />
+          <FormAutocomplete
+            control={control}
+            name="type_of_game"
+            label="Type Of Game"
+            required={false}
+            errorMessage={errors["type_of_game"]?.message}
+            options={typesOfGamesOptions}
+          />
+          <FormAutocomplete
+            control={control}
+            name="owned"
+            label="Owned?"
+            required={false}
+            errorMessage={errors["owned"]?.message}
+            options={ownedOptions}
+          />
+          <FormAutocomplete
+            control={control}
+            name="status"
+            label="Status"
+            required={false}
+            errorMessage={errors["status"]?.message}
+            options={statusOptions}
+          />
+          <FormAutocomplete
+            control={control}
+            name="platform"
+            label="Platform"
+            required={false}
+            errorMessage={errors["status"]?.message}
+            options={platfromOptions}
+          />
+        </Stack>
+        <Button
+          onClick={handleSubmit(createGame)}
+          type="submit"
+          variant="contained"
+          size="large"
+          sx={{
+            bgcolor: "main",
+            ":hover": { backgroundColor: "dark" },
+            margin: "5px",
+          }}
+        >
+          Create
+        </Button>
+      </form>
+    </FormProvider>
   );
 }
