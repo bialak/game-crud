@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
 export async function GET(req: Request) {
   const result = await prisma.game.findMany();
-  return Response.json({ message: "ok", status: 201, data: result });
+  return Response.json({ message: "ok", status: 200, data: result });
 }
 
 export async function DELETE(request: Request) {
