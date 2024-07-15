@@ -19,7 +19,7 @@ import {
   statusOptions,
   platfromOptions,
 } from "@/validation/options";
-import { GameFormValues } from "@/validation/options";
+import { GameFormValues } from "@/components/types";
 
 export default function Create(props) {
   const methods = useForm<GameFormValues>({
@@ -41,8 +41,6 @@ export default function Create(props) {
     control,
     formState: { errors },
   } = methods;
-
-  const errorMsg = errors["game_name"]?.message;
 
   function createGame(data) {
     fetch("api/games", {
