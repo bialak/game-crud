@@ -7,6 +7,7 @@ import FormInput from "@/components/FormInput";
 import FormAutocomplete from "@/components/FormAutocomplete";
 import { validationSchema } from "@/validation/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import {
   OwnedOptions,
   StatusOptions,
@@ -52,9 +53,11 @@ function GameForm(props) {
     })
       .then((response) => response.json())
       .then(() => {
-        window.location.href = "/";
+        router.push("/");
       });
   }
+
+  const router = useRouter();
 
   return (
     <FormProvider {...methods}>
