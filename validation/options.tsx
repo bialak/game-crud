@@ -116,34 +116,3 @@ export const platfromOptions = [
     label: "Other",
   },
 ];
-
-export interface GameFormValues {
-  game_name: string;
-  type_of_game:
-    | TypesOfGamesOptions.RPG
-    | TypesOfGamesOptions.PLATFORM
-    | TypesOfGamesOptions.MMORPG
-    | TypesOfGamesOptions.SHOOTER
-    | TypesOfGamesOptions.SURVIVAL
-    | TypesOfGamesOptions.BATTLE_ROYAL
-    | TypesOfGamesOptions.RACING
-    | TypesOfGamesOptions.SPORTS
-    | TypesOfGamesOptions.SIMULATION
-    | TypesOfGamesOptions.MMO
-    | TypesOfGamesOptions.HORROR
-    | TypesOfGamesOptions.POINTS_AND_CLICK
-    | TypesOfGamesOptions.COOPERATIVE;
-  owned: OwnedOptions.Yes | OwnedOptions.No;
-  status:
-    | StatusOptions.PLAYING
-    | StatusOptions.FINISHED
-    | StatusOptions.ONHOLD
-    | StatusOptions.ABONDEND
-    | StatusOptions.PLANING;
-  platform:
-    | PlatformOptions.STEAM
-    | PlatformOptions.EPIC_GAMES
-    | PlatformOptions.UBISOFT
-    | PlatformOptions.BATTLE_NET
-    | PlatformOptions.OTHER;
-}
