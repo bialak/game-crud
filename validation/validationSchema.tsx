@@ -9,9 +9,9 @@ import {
 export const validationSchema = yup.object().shape({
   game_name: yup
     .string()
-    .required("Name Validation Field is Required")
+    .required("Name Field is Required")
     .min(5, "Must be more that 5 letters")
-    .max(255, "tile is too long"),
+    .max(40, "Tile is too long"),
   type_of_game: yup
     .string()
     .oneOf(
@@ -32,11 +32,14 @@ export const validationSchema = yup.object().shape({
       ],
       "Please pick one option"
     )
-    .required("Select Validation Field is Required"),
+    .required("Select Field is Required"),
   owned: yup
     .string()
-    .oneOf([OwnedOptions.Yes, OwnedOptions.No], "Please pick one option")
-    .required("Select Validation Field is Required"),
+    .oneOf(
+      [OwnedOptions.Yes, OwnedOptions.No],
+      "Please choose one of the given options"
+    )
+    .required("Select Field is Required"),
   status: yup
     .string()
     .oneOf(
@@ -47,9 +50,9 @@ export const validationSchema = yup.object().shape({
         StatusOptions.ABONDEND,
         StatusOptions.PLANING,
       ],
-      "Please pick one option"
+      "Please choose one of the given options"
     )
-    .required("Select Validation Field is Required"),
+    .required("Select Field is Required"),
   platform: yup
     .string()
     .oneOf(
@@ -60,7 +63,7 @@ export const validationSchema = yup.object().shape({
         PlatformOptions.BATTLE_NET,
         PlatformOptions.OTHER,
       ],
-      "Please pick one option"
+      "Please choose one of the given options"
     )
     .required("Select Validation Field is Required"),
 });
