@@ -2,6 +2,11 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Games Table",
+  description: "Games Table",
+};
+
 export default function MainPage() {
   return (
     <>
@@ -17,6 +22,7 @@ export default function MainPage() {
             ":hover": { backgroundColor: "dark" },
             position: "absolute",
             left: "50%",
+            marginTop: "2%",
             transform: "translate(-50%,0)",
           }}
         >
