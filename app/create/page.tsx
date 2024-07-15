@@ -2,8 +2,8 @@ import GameForm from "@/components/GameForm";
 import React from "react";
 
 export const metadata = {
-  title: "Game Trucker",
-  description: "Game Trucker",
+  title: "Create game tracking",
+  description: "Here you can add a tracking for your game",
 };
 
 export default function GameCreate() {
