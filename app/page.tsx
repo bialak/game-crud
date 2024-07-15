@@ -4,7 +4,7 @@ import React from "react";
 
 export const metadata = {
   title: "Games Table",
-  description: "Games Table",
+  description: "Here you can see a table of your games",
 };
 
 export default function MainPage() {
