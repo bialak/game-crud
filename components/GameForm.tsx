@@ -49,7 +49,11 @@ function GameForm(props) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(async (response) => await console.log(response.json()));
+    })
+      .then((response) => response.json())
+      .then(() => {
+        window.location.href = "/";
+      });
   }
 
   return (
