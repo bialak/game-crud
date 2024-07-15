@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Controller, Control, FieldPath } from "react-hook-form";
 import { TextField, TextFieldProps } from "@mui/material";
 
