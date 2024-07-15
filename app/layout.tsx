@@ -5,8 +5,9 @@ import React from "react";
 import theme from "@/app/theme";
 
 export const metadata = {
-  title: "Game Trucker",
-  description: "Game Trucker",
+  title: "Game Tracker",
+  description:
+    "Game tracker page to add and delete games that you played or want to play",
 };
 
 export default function RootLayout({
