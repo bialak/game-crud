@@ -26,10 +26,9 @@ export async function GET(req: Request) {
 export async function DELETE(request: Request) {
   const body = await request.json();
   const idsToDelete = body.ids;
-  console.log(body, idsToDelete);
 
   if (!Array.isArray(idsToDelete)) {
-    console.log("Incorrect data");
+    alert("Incorret data. Please check fields");
   }
 
   try {
