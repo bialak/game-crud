@@ -30,7 +30,7 @@ export const validationSchema = yup.object().shape({
         TypesOfGamesOptions.POINTS_AND_CLICK,
         TypesOfGamesOptions.COOPERATIVE,
       ],
-      "Please pick one option"
+      "Please choose one of the given options"
     )
     .required("Type of game field is required"),
   owned: yup
