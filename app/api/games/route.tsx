@@ -28,7 +28,9 @@ export async function DELETE(request: Request) {
   const idsToDelete = body.ids;
 
   if (!Array.isArray(idsToDelete)) {
-    alert("Incorret data. Please check fields");
+    return new Response(JSON.stringify({ message: "Incorrect data" }), {
+      status: 400,
+    });
   }
 
   try {
