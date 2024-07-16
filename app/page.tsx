@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import GameTable from "@/components/GameTable";
 
 export const metadata = {
   title: "Games Table",
@@ -29,6 +30,7 @@ export default function MainPage() {
           Add Game
         </Button>
       </Link>
+      <GameTable />
     </>
   );
 }
