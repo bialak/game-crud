@@ -6,23 +6,25 @@ import { useEffect, useState } from "react";
 import { GameFormValues } from "./types";
 
 const columns: GridColDef<GameFormValues>[] = [
-  { field: "id", headerName: "ID", width: 50 },
   {
     field: "game_name",
     headerName: "Game Name",
-    width: 250,
+    width: 50,
+    flex: 1,
     editable: true,
   },
   {
     field: "type_of_game",
     headerName: "Type Of Game",
-    width: 150,
+    width: 50,
+    flex: 1,
     editable: true,
   },
   {
     field: "owned",
     headerName: "Owned",
-    width: 105,
+    width: 50,
+    flex: 1,
     editable: true,
     valueFormatter: (value) => {
       if (value === "TRUE") {
@@ -35,13 +37,15 @@ const columns: GridColDef<GameFormValues>[] = [
   {
     field: "status",
     headerName: "Status",
-    width: 105,
+    width: 50,
+    flex: 1,
   },
   {
     field: "platform",
     headerName: "Platform",
-    width: 120,
-    editable: true,
+    resizable: true,
+    width: 50,
+    flex: 1,
   },
 ];
 
@@ -66,7 +70,6 @@ export default function GameTable() {
   }, [hasLoaded]);
 
   const handleDelete = async () => {
-    console.log(games, selectedRowsIds);
     try {
       const response = await fetch(`api/games`, {
         method: "DELETE",
@@ -75,7 +78,6 @@ export default function GameTable() {
       });
       if (response.ok) {
         setGames(games.filter((game) => !selectedRowsIds.includes(game.id)));
-        console.log(games, selectedRowsIds, "Games deleted successfully");
       } else {
         throw new Error("Failed to delete games");
       }
