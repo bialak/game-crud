@@ -1,55 +1,75 @@
 "use client";
 import React from "react";
 import { Button, Box } from "@mui/material";
-import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridRowSelectionModel,
+  GridActionsCellItem,
+  GridRowParams,
+} from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { GameFormValues } from "./types";
-
-const columns: GridColDef<GameFormValues>[] = [
-  {
-    field: "game_name",
-    headerName: "Game Name",
-    width: 50,
-    flex: 1,
-    editable: true,
-  },
-  {
-    field: "type_of_game",
-    headerName: "Type Of Game",
-    width: 50,
-    flex: 1,
-    editable: true,
-  },
-  {
-    field: "owned",
-    headerName: "Owned",
-    width: 50,
-    flex: 1,
-    editable: true,
-    valueFormatter: (value) => {
-      if (value === "TRUE") {
-        return "Yes";
-      } else {
-        return "No";
-      }
-    },
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 50,
-    flex: 1,
-  },
-  {
-    field: "platform",
-    headerName: "Platform",
-    resizable: true,
-    width: 50,
-    flex: 1,
-  },
-];
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function GameTable() {
+  const handleClick = () => {
+    console.log("nice");
+  };
+
+  const columns: GridColDef<GameFormValues>[] = [
+    {
+      field: "game_name",
+      headerName: "Game Name",
+      width: 50,
+      flex: 1,
+      editable: true,
+    },
+    {
+      field: "type_of_game",
+      headerName: "Type Of Game",
+      width: 50,
+      flex: 1,
+    },
+    {
+      field: "owned",
+      headerName: "Owned",
+      width: 50,
+      flex: 1,
+      valueFormatter: (value) => {
+        if (value === "TRUE") {
+          return "Yes";
+        } else {
+          return "No";
+        }
+      },
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 50,
+      flex: 1,
+    },
+    {
+      field: "platform",
+      headerName: "Platform",
+      width: 50,
+      flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          onClick={handleClick}
+          label="Edit"
+        />,
+      ],
+    },
+  ];
+
   const [games, setGames] = useState<any[]>([]);
   const [hasLoaded, setHasLoaded] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowSelectionModel>(
