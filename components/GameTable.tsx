@@ -11,12 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import { GameFormValues } from "./types";
 import EditIcon from "@mui/icons-material/Edit";
+import { useRouter } from "next/navigation";
 
 export default function GameTable() {
-  const handleClick = () => {
-    console.log("nice");
-  };
-
   const columns: GridColDef<GameFormValues>[] = [
     {
       field: "game_name",
@@ -63,12 +60,18 @@ export default function GameTable() {
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           icon={<EditIcon />}
-          onClick={handleClick}
+          onClick={() => handleEdit(params.row.id)}
           label="Edit"
         />,
       ],
     },
   ];
+
+  const handleEdit = (id) => {
+    router.push(`/${id}`);
+  };
+
+  const router = useRouter();
 
   const [games, setGames] = useState<any[]>([]);
   const [hasLoaded, setHasLoaded] = useState(false);
