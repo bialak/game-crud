@@ -17,11 +17,9 @@ export default function EditGameForm({ gameId }: EditGameFormProps) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        router.push("/");
-      });
+    }).then(() => {
+      router.push("/");
+    });
   }
   return <GameForm title="Edit" gameId={gameId} onSubmit={editGame} />;
 }

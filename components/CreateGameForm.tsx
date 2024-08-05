@@ -13,11 +13,9 @@ export default function CreateGameForm() {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        router.push("/");
-      });
+    }).then(() => {
+      router.push("/");
+    });
   }
   return <GameForm title="Create" onSubmit={createGame} />;
 }
