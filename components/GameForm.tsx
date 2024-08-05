@@ -32,7 +32,7 @@ interface GameFormProps {
 function GameForm(props: GameFormProps) {
   const { title, gameId, onSubmit } = props;
 
-  const [game, setGame] = useState<any>([]);
+  const [game, setGame] = useState<GameFormValues>();
   const [hasLoadedGame, setHasLoadedGame] = useState(false);
 
   const methods = useForm<GameFormValues>({
@@ -62,16 +62,14 @@ function GameForm(props: GameFormProps) {
     }
   });
 
-  const gameToEdit: GameFormValues = game;
-
   useEffect(() => {
-    if (gameId) {
+    if (game) {
       reset({
-        game_name: gameToEdit.game_name,
-        type_of_game: gameToEdit.type_of_game,
-        owned: gameToEdit.owned,
-        status: gameToEdit.status,
-        platform: gameToEdit.platform,
+        game_name: game.game_name,
+        type_of_game: game.type_of_game,
+        owned: game.owned,
+        status: game.status,
+        platform: game.platform,
       });
     }
   }, [hasLoadedGame, game]);
