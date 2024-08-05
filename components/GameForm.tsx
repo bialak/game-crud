@@ -9,20 +9,29 @@ import { validationSchema } from "@/validation/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import {
-  OwnedOptions,
-  StatusOptions,
-  TypesOfGamesOptions,
-  PlatformOptions,
-} from "@/components/types";
-import {
   typesOfGamesOptions,
   ownedOptions,
   statusOptions,
   platfromOptions,
 } from "@/validation/options";
-import { GameFormValues } from "@/components/types";
+import {
+  GameFormValues,
+  OwnedOptions,
+  StatusOptions,
+  PlatformOptions,
+  TypesOfGamesOptions,
+} from "@/components/types";
+import { useEffect, useState } from "react";
 
-function GameForm(props) {
+interface GameFormProps {
+  title: string;
+  gameId?: number;
+  onSubmit: any;
+}
+
+function GameForm(props: GameFormProps) {
+  const { title, gameId, onSubmit } = props;
+
   const methods = useForm<GameFormValues>({
     defaultValues: {
       game_name: "",
@@ -37,25 +46,44 @@ function GameForm(props) {
     reValidateMode: "onChange",
   });
 
+  if (gameId) {
+    const [games, setGames] = useState<any[]>([]);
+    const [hasLoadedGame, setHasLoadedGame] = useState(false);
+
+    useEffect(() => {
+      if (!hasLoadedGame) {
+        fetch(`api/games/`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            setGames(data.data);
+            setHasLoadedGame(true);
+          });
+      }
+    }, [gameId]);
+
+    const gameToEdit: GameFormValues = games.find((game) => game.id == gameId);
+
+    useEffect(() => {
+      if (hasLoadedGame) {
+        reset({
+          game_name: gameToEdit.game_name,
+          type_of_game: gameToEdit.type_of_game,
+          owned: gameToEdit.owned,
+          status: gameToEdit.status,
+          platform: gameToEdit.platform,
+        });
+      }
+    }, [hasLoadedGame, games]);
+  }
+
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = methods;
-
-  function createGame(data) {
-    fetch("api/games", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        router.push("/");
-      });
-  }
 
   const router = useRouter();
 
@@ -64,7 +92,7 @@ function GameForm(props) {
       <form>
         <Stack spacing={2} justifyContent="center" alignItems="center">
           <h1 className="pageTitle" style={{ width: "100%" }}>
-            Create Game
+            {title}
           </h1>
           <Link href="/">
             <Button
@@ -119,7 +147,7 @@ function GameForm(props) {
           />
         </Stack>
         <Button
-          onClick={handleSubmit(createGame)}
+          onClick={handleSubmit(onSubmit)}
           type="submit"
           variant="contained"
           size="large"
@@ -129,7 +157,7 @@ function GameForm(props) {
             margin: "5px",
           }}
         >
-          Create
+          {title}
         </Button>
       </form>
     </FormProvider>
