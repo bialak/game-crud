@@ -32,6 +32,9 @@ interface GameFormProps {
 function GameForm(props: GameFormProps) {
   const { title, gameId, onSubmit } = props;
 
+  const [game, setGame] = useState<GameFormValues>();
+  const [hasLoadedGame, setHasLoadedGame] = useState(false);
+
   const methods = useForm<GameFormValues>({
     defaultValues: {
       game_name: "",
@@ -46,37 +49,30 @@ function GameForm(props: GameFormProps) {
     reValidateMode: "onChange",
   });
 
-  if (gameId) {
-    const [games, setGames] = useState<any[]>([]);
-    const [hasLoadedGame, setHasLoadedGame] = useState(false);
-
-    useEffect(() => {
-      if (!hasLoadedGame) {
-        fetch(`api/games/`)
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => {
-            setGames(data.data);
-            setHasLoadedGame(true);
-          });
-      }
-    }, [gameId]);
-
-    const gameToEdit: GameFormValues = games.find((game) => game.id == gameId);
-
-    useEffect(() => {
-      if (hasLoadedGame) {
-        reset({
-          game_name: gameToEdit.game_name,
-          type_of_game: gameToEdit.type_of_game,
-          owned: gameToEdit.owned,
-          status: gameToEdit.status,
-          platform: gameToEdit.platform,
+  useEffect(() => {
+    if (!hasLoadedGame) {
+      fetch(`api/games/${gameId}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          setGame(data.game);
+          setHasLoadedGame(true);
         });
-      }
-    }, [hasLoadedGame, games]);
-  }
+    }
+  });
+
+  useEffect(() => {
+    if (game) {
+      reset({
+        game_name: game.game_name,
+        type_of_game: game.type_of_game,
+        owned: game.owned,
+        status: game.status,
+        platform: game.platform,
+      });
+    }
+  }, [hasLoadedGame, game]);
 
   const {
     handleSubmit,
@@ -154,7 +150,10 @@ function GameForm(props: GameFormProps) {
           sx={{
             bgcolor: "main",
             ":hover": { backgroundColor: "dark" },
-            margin: "5px",
+            position: "absolute",
+            left: "50%",
+            marginTop: "2%",
+            transform: "translate(-50%,0)",
           }}
         >
           {title}
