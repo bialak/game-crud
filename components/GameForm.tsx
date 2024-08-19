@@ -150,7 +150,10 @@ function GameForm(props: GameFormProps) {
           sx={{
             bgcolor: "main",
             ":hover": { backgroundColor: "dark" },
-            margin: "5px",
+            position: "absolute",
+            left: "50%",
+            marginTop: "2%",
+            transform: "translate(-50%,0)",
           }}
         >
           {title}
