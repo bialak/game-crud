@@ -60,7 +60,7 @@ function GameForm(props: GameFormProps) {
           setHasLoadedGame(true);
         });
     }
-  });
+  }, [hasLoadedGame, gameId]);
 
   useEffect(() => {
     if (game) {
