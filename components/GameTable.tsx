@@ -59,6 +59,7 @@ export default function GameTable() {
       type: "actions",
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
+          key={params.row.game_name}
           icon={<EditIcon />}
           onClick={() => handleEdit(params.row.id)}
           label="Edit"
