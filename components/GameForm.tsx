@@ -27,13 +27,6 @@ interface GameFormProps {
   title: string;
   gameId?: number;
   onSubmit: any;
-  reset: (data: {
-    game_name: string;
-    type_of_game: string;
-    owned: boolean;
-    status: string;
-    platform: string;
-  }) => void;
 }
 
 function GameForm(props: GameFormProps) {
