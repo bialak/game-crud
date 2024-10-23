@@ -10,7 +10,8 @@
 
 ## About The Project
 
-<img width="1393" alt="Screenshot 2024-10-23 at 18 03 03" src="https://github.com/user-attachments/assets/1810853c-dd8c-4fe9-96c0-5a55c3511690">
+<img width="1183" alt="Screenshot 2024-10-23 at 22 55 48" src="https://github.com/user-attachments/assets/ff2329d1-61f2-423e-b1bc-a55b1cc3def5">
+
 
 I created games-crud. Among others in this project you can add games, which you played and what are you planning to play.
 
