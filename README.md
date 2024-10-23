@@ -31,7 +31,7 @@ I created games-crud. Among others in this project you can add games, which you 
 
 1. Clone the repo
    ```sh
-     git clone https://github.com/bialak/weather.git 
+     git clone https://github.com/bialak/games-crud.git 
    ```
 2. Install NPM packages
    ```sh
