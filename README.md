@@ -2,7 +2,7 @@
   <p align="center">
     In this project you can create your list of games you want to play or have played
     <br />
-    <a href="https://bialak.github.io/weather/](https://games-to-play.netlify.app/">View Page</a>
+    <a href="https://bialak.github.io/weather/](https://games-to-play.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/bialak/game-crud/issues/new">Report Bug</a>
   </p>
