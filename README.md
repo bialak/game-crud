@@ -37,7 +37,7 @@ I created games-crud. Among others in this project you can add games, which you 
    ```sh
    npm install
    ```
-3.Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
+3. Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
 
 
    
