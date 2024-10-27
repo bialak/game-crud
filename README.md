@@ -37,11 +37,9 @@ I created games-crud. Among others in this project you can add games, which you 
    ```sh
    npm install
    ```
+3.Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
 
-7. Write in the terminal:
-    ```sh
-    npm start 
-   ```
+
    
 ### Contact
 
@@ -51,7 +49,7 @@ Project Link: https://games-to-play.netlify.app/
 
 
 
-I created games-crud.Among others in this project you can add games, which you played and what are you planning to play.  I used mostly react and typescript. Here are steps to open page on your computer:
+
 
 * Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
 * Add the PostgreSQL bin directory path to the PATH environmental variable.
