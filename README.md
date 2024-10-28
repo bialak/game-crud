@@ -38,6 +38,35 @@ I created games-crud. Among others in this project you can add games, which you 
    npm install
    ```
 3. Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
+4. Add the PostgreSQL bin directory path to the PATH environmental variable.Tutorial para sistemas individuales :
+   
+   - Windows https://www.commandprompt.com/education/how-to-set-windows-path-for-postgres-tools/
+   - Macos https://stackoverflow.com/questions/20928734/how-to-put-psql-on-the-path-when-using-postgres-app-on-os-x
+   - Linux https://phoenixnap.com/kb/linux-add-to-path
+  
+5. Open the psql command-line tool. In the Windows Command Prompt or Terminal, run the command:
+    ```sh
+     psql -U userName
+   ```
+   Enter your password which you created in installation . Usually userName is postgres.
+6. Run a `CREATE DATABASE` command to create a new database. For example :
+    ```sh
+      CREATE DATABASE games WITH ENCODING 'UTF8'
+   ```
+7. Connect to the new database using the command:
+   ```sh
+    \c databaseName
+   ```
+8. You need to go file `.env.example`. Replace DATABASEURL like in .env. Just write your created database, password, user and port if you use another one. Change name `.enx.example` to `.env`.
+9. Remove migrations files and write the command :
+   ```sh
+      npx prisma migrate dev –DatabaseName init
+   ```
+10. All you need to do is write in your code editor's terminal:
+    ```sh
+      npm run dev
+     ```
+
 
 
    
@@ -47,17 +76,6 @@ Klaudia Biała - klaudiabiaa@gmail.com
 
 Project Link: https://games-to-play.netlify.app/
 
-
-
-
-
-* Download and install a PostgreSQL server from page www.postgresql.org. Ensure that the installation includes the PostgreSQL Unicode ODBC driver.
-* Add the PostgreSQL bin directory path to the PATH environmental variable.
-* Open the psql command-line tool. In the Windows Command Prompt or Terminal, run the command: psql -U userName. Enter your password which you created in installation . Usually userName is postgres.
-* Run a CREATE DATABASE command to create a new database. For example : CREATE DATABASE games WITH ENCODING 'UTF8'.
-* Connect to the new database using the command: \c databaseName.
-* You should gave the .env file you need to replace DATABASEURL like in .env.example. Just write your created database, password, user and port if you use another one.
-* Remove migrations files and write the command : npx prisma migrate dev –DatabaseName init.
 
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
@@ -73,5 +91,4 @@ Project Link: https://games-to-play.netlify.app/
 [PostgreSQL-logo]: https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=PostgreSQL&logoColor=white
 [PostgreSQL-url]: https://www.postgresql.org/
 
-
-
+Do your list and share it with me ! :D 
