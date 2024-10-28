@@ -13,7 +13,7 @@
 <img width="1183" alt="Screenshot 2024-10-23 at 22 55 48" src="https://github.com/user-attachments/assets/ff2329d1-61f2-423e-b1bc-a55b1cc3def5">
 
 
-I created games-crud. Among others in this project you can add games, which you played and what are you planning to play.
+I created games-crud to do list of games that i want to play. Among others in this project you can add games, which you played and what are you planning to play.
 
 
 ### Built With
